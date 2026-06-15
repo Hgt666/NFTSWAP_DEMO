@@ -8,6 +8,7 @@ import (
 	"nft-service/db"
 	"nft-service/mq"
 	"nft-service/router"
+	"nft-service/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -43,6 +44,13 @@ func main() {
 		log.Fatalf("Failed to initialize mq: %v", err)
 	}
 	log.Println("mq初始化成功")
+
+	// 初始化缓存
+	err =utils.InitCache()
+	if err != nil {
+		log.Fatalf("Failed to initialize cache: %v", err)
+	}
+	log.Println("缓存初始化成功")
 
 	// 启动 api服务
 	r := gin.Default()

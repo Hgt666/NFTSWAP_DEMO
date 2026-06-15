@@ -15,7 +15,7 @@ func LoadV1(r *gin.Engine) {
 		})
 
 		// 查找所有挂单的 nft
-		api.GET("/nft/list",handler.NFTlistHandler)
+		api.GET("/nft/list",handler.NFTlistHandlerLocalCache)
 	}
 
 }
