@@ -4,19 +4,18 @@ import (
 	"github.com/spf13/viper"
 )
 
-
 type Config struct {
-	AppConfig AppConfig  `mapstructure:"app" yaml:"App"`
-	DBConfig MysqlConfig `mapstructure:"mysql" yaml:"Mysql"`
-	RedisConfig RedisConfig `mapstructure:"redis" yaml:"Redis"`
+	AppConfig      AppConfig      `mapstructure:"app" yaml:"App"`
+	MysqlConfig    MysqlConfig    `mapstructure:"mysql" yaml:"Mysql"`
+	RedisConfig    RedisConfig    `mapstructure:"redis" yaml:"Redis"`
 	RabbitMQConfig RabbitMQConfig `mapstructure:"rabbitmq" yaml:"RabbitMQ"`
+	Chain          ChainConfig    `mapstructure:"chain" yaml:"Chain"`
 }
 
 type AppConfig struct {
-	Host     string `yaml:"host"`
-	Port     int    `yaml:"port"`
+	Host string `yaml:"host"`
+	Port int    `yaml:"port"`
 }
-
 
 type MysqlConfig struct {
 	Host     string `yaml:"host"`
@@ -38,16 +37,23 @@ type RabbitMQConfig struct {
 	Port     int    `yaml:"port"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
-	Vhost   string `yaml:"vhost"`
+	Vhost    string `yaml:"vhost"`
 }
 
+type ChainConfig struct {
+	ChainId        string `yaml:"chain_id"`
+	RpcUrl         string `yaml:"rpc_url"`
+	StartBlock     uint64 `yaml:"start_block"`
+	ScanInterval   uint64 `yaml:"scan_interval"`
+	BatchSize      uint64 `yaml:"batch_size"`
+	TargetContract string `yaml:"target_contract"`
+}
 
-
-
+var GlobalConfig Config
 
 // 初始化配置
-func InitConfig() (*Config, error) {
-	var config Config
+func InitConfig() error {
+
 	// 用viper加载配置文件
 	viper.SetConfigType("yaml")
 	// viper.AutomaticEnv() // 读取环境变量
@@ -57,11 +63,11 @@ func InitConfig() (*Config, error) {
 	err := viper.ReadInConfig()
 
 	if err != nil {
-		return nil, err
+		return err
 	}
-	err = viper.Unmarshal(&config)
+	err = viper.Unmarshal(&GlobalConfig)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return &config, nil
+	return nil
 }

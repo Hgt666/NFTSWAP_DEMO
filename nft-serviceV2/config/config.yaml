@@ -3,10 +3,10 @@ App:
   Port: 8080
 Mysql:
   Host: localhost
-  Port: 3306
+  Port: 3307
   User: root
-  Password: root
-  DBName: nftswap
+  Password: rootpasswd
+  DBName: nftV1
 Redis:
   Host: localhost
   Port: 6379
@@ -18,3 +18,11 @@ Rabbitmq:
   Username: guest
   Password: guest
   Vhost: /
+Chain:
+  ChainId: 1
+  RpcUrl: http://localhost:8545
+  StartBlock: 0
+  ScanInterval: 2
+  BatchSize: 5
+  TargetContract: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+
