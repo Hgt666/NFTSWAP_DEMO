@@ -1,0 +1,21 @@
+# 应用配置
+app:
+  host: "127.0.0.1"
+  port: 8080
+
+# etcd 配置
+etcd:
+  endpoints: ["127.0.0.1:2379"]
+  timeout: 5
+
+# MySQL、Redis、本地缓存配置 沿用你原有配置
+mysql:
+  dsn: "root:rootpasswd@tcp(127.0.0.1:3307)/nftV1?charset=utf8mb4&parseTime=True&loc=Local"
+
+redis:
+  addr: "127.0.0.1:6379"
+
+local_cache:
+  num_counters: 10000
+  max_cost: 67108864
+  buffer_items: 128
